@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f4f4f9;
+    }
+    .game-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 80px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-box">
+    <h1>Guess the Secret Number</h1>
+    <p>I am thinking of a number between 1 and 70.</p>
+    
+    <input type="number" id="guessInput" min="1" max="70" placeholder="1-70">
+    <button onclick="checkGuess()">Guess</button>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    // 1. Pick a random number between 1 and 70
+    const secretNumber = Math.floor(Math.random() * 70) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+      // 2. Get the player's guess from the input box
+      const userGuess = Number(document.getElementById('guessInput').value);
+      const message = document.getElementById('message');
+      attempts++;
+
+      // 3. Compare the guess with the secret number
+      if (!userGuess || userGuess < 1 || userGuess > 70) {
+        message.textContent = "Please enter a valid number between 1 and 70!";
+        message.style.color = "red";
+      } else if (userGuess === secretNumber) {
+        message.textContent = `🎉 Correct! You guessed it in ${attempts} attempts!`;
+        message.style.color = "black";
+      } else if (userGuess < secretNumber) {
+        message.textContent = "📉 Too low! Try a higher number.";
+        message.style.color = "sky blue";
+      } else {
+        message.textContent = "📈 Too high! Try a lower number.";
+        message.style.color = "lavandar";
+      }
+    }
+  </script>
+
+</body>
+</html>
